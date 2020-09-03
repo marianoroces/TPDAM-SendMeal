@@ -1,18 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/txtRegistrarse"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:textColor="@color/colorNegro"
+        android:text="@string/lblRegistrarse" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/txtNombre"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/lblNombre"
+        android:padding="12dp"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/txtApellido"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/lblApellido"
+        android:padding="12dp"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/txtMail"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/lblMail"
+        android:padding="12dp"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/txtContraseña"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/lblContraseña"
+        android:padding="12dp"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/txtRepetirContraseña"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/lblRepetirContraseña"
+        android:padding="12dp"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="textPassword" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/txtTipoTarjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/lblTipoTarjeta" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbDebito"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorCeleste"
+            android:text="@string/lblDebito" />
+
+        <RadioButton
+            android:id="@+id/rbCredito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorCeleste"
+            android:text="@string/lblCredito" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtNroTarjeta"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/custom_edit_text"
+            android:padding="12dp"
+            android:ems="10"
+            android:hint="@string/lblNroTarjeta"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/txtCCVTarjeta"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/custom_edit_text"
+            android:padding="12dp"
+            android:ems="10"
+            android:hint="@string/lblCCVTarjeta"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtVencimientoTarjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/lblVencimientoTarjeta" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtMesVencimientoTarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/custom_edit_text"
+            android:padding="12dp"
+            android:ems="10"
+            android:hint="@string/lblMesVencimientoTarjeta"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/txtAnioVencimientoTarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/custom_edit_text"
+            android:padding="12dp"
+            android:ems="10"
+            android:hint="@string/lblAnioVencimientoTarjeta"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"/>
+
+    <EditText
+        android:id="@+id/txtCBU"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custom_edit_text"
+        android:padding="12dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/lblCBU"/>
+
+    <EditText
+        android:id="@+id/txtAliasCBU"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custom_edit_text"
+        android:padding="12dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/lblAliasCBU" />
+
+    <Switch
+        android:id="@+id/switchCargaInicial"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_marginTop="5dp"
+        android:theme="@style/SwitchTheme"
+        android:text="@string/lblCargaInicial" />
+
+    <SeekBar
+        android:id="@+id/sbCargaInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="1500"
+        android:progressTint="@color/colorCeleste"
+        android:thumbTint="@color/colorCeleste" />
+
+    <CheckBox
+        android:id="@+id/cbTerminosYCondiciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lblTerminosYCondiciones"
+        android:buttonTint="@color/colorCeleste"/>
+
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:textColor="@color/colorBlanco"
+        android:text="@string/lblBotonRegistrar"
+        android:background="@drawable/custom_button" />
+
+
+</LinearLayout>
