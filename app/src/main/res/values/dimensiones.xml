@@ -2,11 +2,15 @@
 <resources>
 
     <dimen name="dimTitulo">40dp</dimen>
+    <dimen name="dimTextoSB">14dp</dimen>
+    <dimen name="margenTitulo">40dp</dimen>
     <dimen name="margenLateral">20dp</dimen>
     <dimen name="margenSuperior">10dp</dimen>
     <dimen name="margenIntermedio">5dp</dimen>
-    <dimen name="margenTitulo">20dp</dimen>
     <dimen name="padding">12dp</dimen>
     <dimen name="cursor">2dp</dimen>
+    <dimen name="editTextChico">20dp</dimen>
+    <dimen name="tamSB">300dp</dimen>
+    <dimen name="tamNroTarjeta">200dp</dimen>
 
 </resources>

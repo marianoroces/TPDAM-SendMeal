@@ -114,6 +114,7 @@
             android:text="@string/lblTipoTarjeta" />
 
         <RadioGroup
+            android:id="@+id/rgTipoTarjeta"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/margenLateral"
@@ -143,7 +144,7 @@
 
             <EditText
                 android:id="@+id/txtNroTarjeta"
-                android:layout_width="200dp"
+                android:layout_width="@dimen/tamNroTarjeta"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/margenLateral"
@@ -156,7 +157,7 @@
 
             <EditText
                 android:id="@+id/txtCCVTarjeta"
-                android:layout_width="20dp"
+                android:layout_width="@dimen/editTextChico"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/margenIntermedio"
@@ -259,15 +260,38 @@
             android:theme="@style/SwitchTheme"
             android:text="@string/lblCargaInicial" />
 
-        <SeekBar
-            android:id="@+id/sbCargaInicial"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margenLateral"
-            android:layout_marginEnd="@dimen/margenLateral"
-            android:max="1500"
-            android:progressTint="@color/colorCeleste"
-            android:thumbTint="@color/colorCeleste" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/sbCargaInicial"
+                android:layout_width="@dimen/tamSB"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margenLateral"
+                android:layout_marginEnd="@dimen/margenIntermedio"
+                android:layout_marginTop="@dimen/padding"
+                android:max="1500"
+                android:progressTint="@color/colorCeleste"
+                android:visibility="gone"
+                android:thumbTint="@color/colorCeleste" />
+
+            <EditText
+                android:id="@+id/txtCargaInicial"
+                android:layout_width="@dimen/editTextChico"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/margenLateral"
+                android:background="@drawable/custom_edit_text"
+                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                android:textColor="@color/colorGris"
+                android:visibility="gone"
+                android:textSize="@dimen/dimTextoSB"
+                android:focusable="false"
+                android:padding="@dimen/padding" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -296,6 +320,7 @@
             android:layout_gravity="center"
             android:textColor="@color/colorBlanco"
             android:text="@string/lblBotonRegistrar"
+            android:enabled="false"
             android:background="@drawable/custom_button" />
 
     </LinearLayout>
