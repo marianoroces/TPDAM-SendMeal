@@ -12,5 +12,6 @@
     <dimen name="editTextChico">20dp</dimen>
     <dimen name="tamSB">300dp</dimen>
     <dimen name="tamNroTarjeta">200dp</dimen>
+    <dimen name="alturaSpinner">48dp</dimen>
 
 </resources>

@@ -135,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorCeleste"
                 android:text="@string/lblCredito" />
+
         </RadioGroup>
 
         <LinearLayout
@@ -168,6 +169,7 @@
                 android:ems="10"
                 android:hint="@string/lblCCVTarjeta"
                 android:inputType="number" />
+
         </LinearLayout>
 
         <TextView
@@ -185,32 +187,25 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txtMesVencimientoTarjeta"
+            <Spinner
+                android:id="@+id/spMesVencimientoTarjeta"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/alturaSpinner"
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/margenLateral"
-                android:background="@drawable/custom_edit_text"
-                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
-                android:padding="@dimen/padding"
-                android:ems="10"
-                android:hint="@string/lblMesVencimientoTarjeta"
-                android:inputType="number" />
+                android:background="@drawable/custom_spinner"
+                android:padding="@dimen/padding"/>
 
-            <EditText
-                android:id="@+id/txtAnioVencimientoTarjeta"
+            <Spinner
+                android:id="@+id/spAnioVencimientoTarjeta"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/alturaSpinner"
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/margenIntermedio"
                 android:layout_marginEnd="@dimen/margenLateral"
-                android:background="@drawable/custom_edit_text"
-                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
-                android:padding="@dimen/padding"
-                android:ems="10"
-                android:hint="@string/lblAnioVencimientoTarjeta"
-                android:inputType="number" />
+                android:background="@drawable/custom_spinner"
+                android:padding="@dimen/padding"/>
+
         </LinearLayout>
 
         <View
