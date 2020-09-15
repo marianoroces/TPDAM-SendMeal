@@ -13,5 +13,12 @@
     <dimen name="tamSB">300dp</dimen>
     <dimen name="tamNroTarjeta">200dp</dimen>
     <dimen name="alturaSpinner">48dp</dimen>
+    <dimen name="textViewBienvenidoMargenDerIzq">60dp</dimen>
+    <dimen name="textViewBienvenidoMargenTopBot">40dp</dimen>
+    <dimen name="radioRectanguloTextView">10dp</dimen>
+    <dimen name="radioRectanguloEditText">10dp</dimen>
+    <dimen name="radioRectanguloButton">10dp</dimen>
+    <dimen name="strokeTextView">1dp</dimen>
+    <dimen name="strokeEditText">1dp</dimen>
 
 </resources>

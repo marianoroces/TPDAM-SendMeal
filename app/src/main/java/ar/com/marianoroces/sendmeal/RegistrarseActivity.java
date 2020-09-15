@@ -1,10 +1,13 @@
 package ar.com.marianoroces.sendmeal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,7 +23,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -29,7 +31,7 @@ import ar.com.marianoroces.sendmeal.model.CuentaBancaria;
 import ar.com.marianoroces.sendmeal.model.Tarjeta;
 import ar.com.marianoroces.sendmeal.model.Usuario;
 
-public class MainActivity extends AppCompatActivity {
+public class RegistrarseActivity extends AppCompatActivity {
 
     EditText txtNombre;
     EditText txtApellido;
@@ -52,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
     Button btnRegistrar;
     String mesSeleccionado;
     String anioSeleccionado;
+    Toolbar toolbarRegistrarme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registrarse);
 
         txtNombre = findViewById(R.id.txtNombre);
         txtApellido = findViewById(R.id.txtApellido);
@@ -77,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         sbCargaInicial = findViewById(R.id.sbCargaInicial);
         cbTerminosYCondiciones = findViewById(R.id.cbTerminosYCondiciones);
         btnRegistrar = findViewById(R.id.btnRegistrar);
+
+        toolbarRegistrarme = findViewById(R.id.tbRegistrarme);
+        setSupportActionBar(toolbarRegistrarme);
 
         String[] meses = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         String[] anios = {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
@@ -263,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
                         txtNombre.requestFocus();
 
-                        Toast.makeText(MainActivity.this, "REGISTRO COMPLETADO", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegistrarseActivity.this, "REGISTRO COMPLETADO", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -346,5 +352,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_registrarse_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menuVolver) {
+           // Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+           // startActivity(homeIntent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -19,4 +19,12 @@
     <string name="lblTerminosYCondiciones">Acepto los terminos y condiciones</string>
     <string name="lblBotonRegistrar">Registrar</string>
     <string name="lblRegistrarse">Registrarse</string>
+    <string name="lblBienvenido">Bienvenido</string>
+    <string name="lblSendMeal">Send Meal</string>
+
+    <!-- MENU TOOLBAR -->
+    <string name="menuRegistrarme">Registrarse</string>
+    <string name="menuCrearPlato">Crear Plato</string>
+    <string name="menuListarPlatos">Listar Platos</string>
+    <string name="menuVolver">Volver</string>
 </resources>

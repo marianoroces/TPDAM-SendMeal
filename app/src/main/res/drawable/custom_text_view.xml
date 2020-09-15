@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorCeleste"/>
+            <stroke android:width="@dimen/strokeTextView"
+                    android:color="@color/colorBlanco"/>
+            <corners android:radius="@dimen/radioRectanguloTextView"/>
+
+        </shape>
+    </item>
+
+    <item android:top="5dp" android:bottom="5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorBlancoBackground"/>
+            <padding android:top="@dimen/textViewBienvenidoMargenTopBot"
+                android:bottom="@dimen/textViewBienvenidoMargenTopBot"
+                android:left="@dimen/textViewBienvenidoMargenDerIzq"
+                android:right="@dimen/textViewBienvenidoMargenDerIzq"/>
+        </shape>
+    </item>
+
+</layer-list>

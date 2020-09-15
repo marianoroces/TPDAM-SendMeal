@@ -9,7 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".RegistrarseActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbRegistrarme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorCeleste"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="@string/lblSendMeal"/>
 
         <TextView
             android:id="@+id/txtRegistrarse"
