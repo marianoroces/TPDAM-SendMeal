@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NuevoPlatoActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbNuevoPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorCeleste"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@color/colorNegro"
+        app:title="@string/lblSendMeal"/>
+
+    <TextView
+        android:id="@+id/txtNuevoPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margenTitulo"
+        android:layout_marginBottom="@dimen/margenTitulo"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/dimTitulo"
+        android:textColor="@color/colorNegro"
+        android:text="@string/lblNuevoPlatoTitulo" />
+
+    <EditText
+        android:id="@+id/txtTituloPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edit_text"
+        android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+        android:padding="@dimen/padding"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margenLateral"
+        android:layout_marginEnd="@dimen/margenLateral"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/lblTituloPlato" />
+
+    <EditText
+        android:id="@+id/txtDescripcionPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edit_text"
+        android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+        android:padding="@dimen/padding"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margenLateral"
+        android:layout_marginEnd="@dimen/margenLateral"
+        android:layout_marginTop="@dimen/margenSuperior"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/lblDescripcionPlato" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtPrecioPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edit_text"
+            android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+            android:hint="@string/lblPrecioPlato"
+            android:padding="@dimen/padding"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margenLateral"
+            android:layout_marginTop="@dimen/margenSuperior"
+            android:layout_marginBottom="@dimen/margenSuperior"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/txtCaloriasPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edit_text"
+            android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+            android:hint="@string/lblCaloriasPlato"
+            android:padding="@dimen/padding"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margenIntermedio"
+            android:layout_marginEnd="@dimen/margenLateral"
+            android:layout_marginTop="@dimen/margenSuperior"
+            android:layout_marginBottom="@dimen/margenSuperior"
+            android:ems="10"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnGuardarPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margenLateral"
+        android:layout_marginEnd="@dimen/margenLateral"
+        android:layout_marginTop="@dimen/margenSuperior"
+        android:text="@string/lblBotonGuardarPlato" />
+
+</LinearLayout>

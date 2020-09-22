@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SendMeal</string>
+    
+    <!-- REGISTRARSE ACTIVITY -->
     <string name="lblNombre">Nombre</string>
     <string name="lblApellido">Apellido</string>
     <string name="lblMail">E-mail</string>
@@ -21,10 +23,19 @@
     <string name="lblRegistrarse">Registrarse</string>
     <string name="lblBienvenido">Bienvenido</string>
     <string name="lblSendMeal">Send Meal</string>
-
-    <!-- MENU TOOLBAR -->
+    
+    <!-- TOOLBAR -->
     <string name="menuRegistrarme">Registrarse</string>
     <string name="menuCrearPlato">Crear Plato</string>
     <string name="menuListarPlatos">Listar Platos</string>
     <string name="menuVolver">Volver</string>
+    
+    <!-- NUEVO PLATO ACTIVITY -->
+    <string name="lblNuevoPlatoTitulo">Nuevo Plato</string>
+    <string name="lblTituloPlato">Titulo</string>
+    <string name="lblDescripcionPlato">Descripcion</string>
+    <string name="lblPrecioPlato">Precio</string>
+    <string name="lblCaloriasPlato">Calorias</string>
+    <string name="lblBotonGuardarPlato">GUARDAR</string>
+    
 </resources>

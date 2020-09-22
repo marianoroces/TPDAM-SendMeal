@@ -18,6 +18,7 @@
             android:background="@color/colorCeleste"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
+            app:titleTextColor="@color/colorNegro"
             app:title="@string/lblSendMeal"/>
 
         <TextView

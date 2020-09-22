@@ -30,8 +30,13 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuRegistrarme:
-                Intent registrarmeIntent = new Intent(HomeActivity.this, RegistrarseActivity.class);
-                startActivity(registrarmeIntent);
+                Intent registrarseIntent = new Intent(HomeActivity.this, RegistrarseActivity.class);
+                startActivity(registrarseIntent);
+                break;
+            case R.id.menuCrearPlato:
+                Intent nuevoPlatoIntent = new Intent(HomeActivity.this, NuevoPlatoActivity.class);
+                startActivity(nuevoPlatoIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

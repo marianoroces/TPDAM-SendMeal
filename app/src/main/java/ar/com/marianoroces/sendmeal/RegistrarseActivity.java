@@ -362,9 +362,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menuVolver) {
-           // Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
-           // startActivity(homeIntent);
+        if(item.getItemId() == R.id.menuVolverRegistrarse) {
             finish();
             return true;
         }
