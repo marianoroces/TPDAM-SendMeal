@@ -37,6 +37,10 @@ public class HomeActivity extends AppCompatActivity {
                 Intent nuevoPlatoIntent = new Intent(HomeActivity.this, NuevoPlatoActivity.class);
                 startActivity(nuevoPlatoIntent);
                 break;
+            case R.id.menuListaPlatos:
+                Intent listaPlatosIntent = new Intent(HomeActivity.this, ListaPlatosActivity.class);
+                startActivity(listaPlatosIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -8,5 +8,6 @@
     <color name="colorGris">#FFAAAAAA</color>
     <color name="colorNegro">#AD000000</color>
     <color name="colorCelesteOscuro">#6566B9F9</color>
+    <color name="colorBarra">#2272AF</color>
     <color name="colorBlancoBackground">#FBFBFB</color>
 </resources>

@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NuevoPlatoActivity"/>
-        <activity android:name=".RegistrarseActivity"/>
+        <activity android:name=".ListaPlatosActivity"
+                  android:parentActivityName=".HomeActivity"/>
+        <activity android:name=".NuevoPlatoActivity"
+                  android:parentActivityName=".HomeActivity"/>
+        <activity android:name=".RegistrarseActivity"
+                  android:parentActivityName=".HomeActivity"/>
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

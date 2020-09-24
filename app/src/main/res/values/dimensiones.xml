@@ -20,5 +20,6 @@
     <dimen name="radioRectanguloButton">10dp</dimen>
     <dimen name="strokeTextView">1dp</dimen>
     <dimen name="strokeEditText">1dp</dimen>
+    <dimen name="alturaImagenFilaPlato">187dp</dimen>
 
 </resources>

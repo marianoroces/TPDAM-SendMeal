@@ -37,6 +37,7 @@ public class NuevoPlatoActivity extends AppCompatActivity {
 
         tbNuevoPlato = findViewById(R.id.tbNuevoPlato);
         setSupportActionBar(tbNuevoPlato);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnGuardarPlato.setOnClickListener(new Button.OnClickListener() {
 
