@@ -1,4 +1,4 @@
-package ar.com.marianoroces.sendmeal;
+package ar.com.marianoroces.sendmeal.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import ar.com.marianoroces.sendmeal.R;
 
 public class HomeActivity extends AppCompatActivity {
 

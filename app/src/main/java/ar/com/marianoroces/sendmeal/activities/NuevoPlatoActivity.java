@@ -1,4 +1,4 @@
-package ar.com.marianoroces.sendmeal;
+package ar.com.marianoroces.sendmeal.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.Plato;
 
 public class NuevoPlatoActivity extends AppCompatActivity {
@@ -72,21 +73,5 @@ public class NuevoPlatoActivity extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_nuevo_plato_toolbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menuVolverNuevoPlato) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

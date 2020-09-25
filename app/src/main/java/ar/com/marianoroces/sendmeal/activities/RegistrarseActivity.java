@@ -1,4 +1,4 @@
-package ar.com.marianoroces.sendmeal;
+package ar.com.marianoroces.sendmeal.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.CuentaBancaria;
 import ar.com.marianoroces.sendmeal.model.Tarjeta;
 import ar.com.marianoroces.sendmeal.model.Usuario;
@@ -353,20 +354,5 @@ public class RegistrarseActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_registrarse_toolbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menuVolverRegistrarse) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,4 +1,4 @@
-package ar.com.marianoroces.sendmeal;
+package ar.com.marianoroces.sendmeal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.marianoroces.sendmeal.PlatoRecyclerAdapter;
+import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.Plato;
 
 public class ListaPlatosActivity extends AppCompatActivity {
