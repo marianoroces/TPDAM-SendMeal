@@ -9,12 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ListaPlatosActivity"
-                  android:parentActivityName=".activities.HomeActivity"/>
-        <activity android:name=".activities.NuevoPlatoActivity"
-                  android:parentActivityName=".activities.HomeActivity"/>
-        <activity android:name=".activities.RegistrarseActivity"
-                  android:parentActivityName=".activities.HomeActivity"/>
+        <activity
+            android:name=".activities.PedidoActivity"
+            android:parentActivityName=".activities.ListaPlatosActivity"/>
+        <activity
+            android:name=".activities.ListaPlatosActivity"
+            android:parentActivityName=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.NuevoPlatoActivity"
+            android:parentActivityName=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.RegistrarseActivity"
+            android:parentActivityName=".activities.HomeActivity" />
         <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

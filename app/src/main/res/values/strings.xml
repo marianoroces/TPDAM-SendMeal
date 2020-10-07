@@ -28,6 +28,7 @@
     <string name="menuRegistrarme">Registrarse</string>
     <string name="menuCrearPlato">Crear Plato</string>
     <string name="menuListarPlatos">Listar Platos</string>
+    <string name="menuNuevoPedido">Nuevo Pedido</string>
     <string name="menuVolver">Volver</string>
 
     <!-- NUEVO PLATO ACTIVITY -->
@@ -39,6 +40,16 @@
     <string name="lblBotonGuardarPlato">GUARDAR</string>
 
     <!-- LISTAR PLATOS ACTIVITY -->
-    <string name="lblVerPlato">Ver</string>
+    <string name="lblPedirPlato">Pedir</string>
     <string name="lblPrecioFilaPlato">Precio: </string>
+
+    <!-- NUEVO PEDIDO ACTIVITY -->
+    <string name="lblNuevoPedidoTitulo">Nuevo Pedido</string>
+    <string name="lblMailNuevoPedido">E-mail</string>
+    <string name="lblCalleNuevoPedido">Calle</string>
+    <string name="lblNumeroNuevoPedido">Numero</string>
+    <string name="lblTipoPedidoNuevoPedido">Tipo de pedido: </string>
+    <string name="lblBotonAgregarPlato">Agregar Plato</string>
+    <string name="lblPrecioTotal">Total: $0.00</string>
+    <string name="lblConfirmarPedido">Confirmar Pedido</string>
 </resources>

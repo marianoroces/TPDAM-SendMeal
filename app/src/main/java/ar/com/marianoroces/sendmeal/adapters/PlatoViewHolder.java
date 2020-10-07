@@ -1,4 +1,4 @@
-package ar.com.marianoroces.sendmeal;
+package ar.com.marianoroces.sendmeal.adapters;
 
 import android.view.View;
 import android.widget.Button;
@@ -9,12 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ar.com.marianoroces.sendmeal.R;
+
 public class PlatoViewHolder extends RecyclerView.ViewHolder {
 
     CardView cvPlato;
     ImageView imgPlato;
     TextView txtTituloPlato, txtPrecioPlato, txtMontoPlato;
-    Button btnVer;
+    Button btnPedir;
 
     public CardView getCvPlato() {
         return cvPlato;
@@ -56,12 +58,12 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder {
         this.txtMontoPlato = txtMontoPlato;
     }
 
-    public Button getBtnVer() {
-        return btnVer;
+    public Button getBtnPedir() {
+        return btnPedir;
     }
 
-    public void setBtnVer(Button btnVer) {
-        this.btnVer = btnVer;
+    public void setBtnPedir(Button btnPedir) {
+        this.btnPedir = btnPedir;
     }
 
     public PlatoViewHolder(@NonNull View itemView) {
@@ -71,6 +73,6 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder {
         txtTituloPlato = itemView.findViewById(R.id.txtTituloFilaPlato);
         txtPrecioPlato = itemView.findViewById(R.id.txtPrecioFilaPlato);
         txtMontoPlato = itemView.findViewById(R.id.txtMontoFilaPlato);
-        btnVer = itemView.findViewById(R.id.btnFilaPlato);
+        btnPedir = itemView.findViewById(R.id.btnFilaPlato);
     }
 }

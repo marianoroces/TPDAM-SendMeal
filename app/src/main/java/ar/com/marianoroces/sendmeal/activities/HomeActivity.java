@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.menuListaPlatos:
                 Intent listaPlatosIntent = new Intent(HomeActivity.this, ListaPlatosActivity.class);
-                startActivity(listaPlatosIntent);
+                startActivityForResult(listaPlatosIntent, 0);
                 break;
         }
         return super.onOptionsItemSelected(item);
