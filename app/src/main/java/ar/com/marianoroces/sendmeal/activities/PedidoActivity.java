@@ -5,7 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +24,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ar.com.marianoroces.sendmeal.MyIntentService;
+import ar.com.marianoroces.sendmeal.MyReceiver;
 import ar.com.marianoroces.sendmeal.adapters.PlatoPedidoAdapter;
 import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.Plato;
@@ -37,11 +45,24 @@ public class PedidoActivity extends AppCompatActivity {
     ArrayList<Plato> listaPlatos = new ArrayList<Plato>();
     int CODIGO_AGREGAR_PLATO = 1;
     Double totalPedido = 0.00;
+    ConfirmarPedidoTask confirmarTask;
+    BroadcastReceiver myReceiver;
+
+    public static final String CODIGO_PEDIDO_CONFIRMADO = "1";
+    public static final String NOTIFICATION_CHANNEL_ID = "10001";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido);
+
+        confirmarTask = new ConfirmarPedidoTask();
+
+        myReceiver = new MyReceiver();
+        IntentFilter filtro = new IntentFilter();
+        filtro.addAction(MyReceiver.EVENTO_PEDIDO);
+        this.registerReceiver(myReceiver, filtro);
+        createNotificationChannel();
 
         txtMail = findViewById(R.id.txtMailNuevoPedido);
         txtCalle = findViewById(R.id.txtCalleNuevoPedido);
@@ -67,6 +88,7 @@ public class PedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentAgregarPlato = new Intent(PedidoActivity.this, ListaPlatosActivity.class);
+                intentAgregarPlato.putExtra("iniciadoDesde", "pedido");
                 startActivityForResult(intentAgregarPlato, CODIGO_AGREGAR_PLATO);
             }
         });
@@ -74,10 +96,14 @@ public class PedidoActivity extends AppCompatActivity {
         btnConfirmarPedido.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(PedidoActivity.this, "Pedido confirmado", Toast.LENGTH_LONG).show();
+                confirmarTask.execute();
                 finish();
             }
         });
+
+        if(listaPlatos.size() == 0) {
+            btnConfirmarPedido.setEnabled(false);
+        }
     }
 
     @Override
@@ -94,14 +120,53 @@ public class PedidoActivity extends AppCompatActivity {
                 Plato platoAuxiliar = new Plato(nombrePlato, descripcionPlato, Double.parseDouble(precioPlato), Integer.parseInt(caloriasPlato));
                 agregarPlato(platoAuxiliar);
 
+                if(listaPlatos.size() > 0) {
+                    btnConfirmarPedido.setEnabled(true);
+                }
+
                 totalPedido += platoAuxiliar.getPrecio();
                 txtPrecioTotal.setText("Total: $"+String.valueOf(totalPedido));
             }
         }
     }
 
-    private void agregarPlato(Plato platoAux){
+    private void agregarPlato(Plato platoAux) {
         listaPlatos.add(platoAux);
         platoAdapter.notifyDataSetChanged();
+    }
+
+    class ConfirmarPedidoTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            for(int i=0; i<5; i++) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return "Pedido confirmado";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Intent intentNotificacion = new Intent(PedidoActivity.this, MyIntentService.class);
+            intentNotificacion.putExtra("cuerpo", result);
+            startService(intentNotificacion);
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

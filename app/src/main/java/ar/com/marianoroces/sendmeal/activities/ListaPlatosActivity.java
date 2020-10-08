@@ -47,7 +47,7 @@ public class ListaPlatosActivity extends AppCompatActivity {
 
         platoAdapter.activarBotones(false);
 
-        if(getCallingActivity().getClassName().equals(PedidoActivity.class.getName())) {
+        if(getIntent().getStringExtra("iniciadoDesde").equalsIgnoreCase("pedido")){
             platoAdapter.activarBotones(true);
         }
     }
