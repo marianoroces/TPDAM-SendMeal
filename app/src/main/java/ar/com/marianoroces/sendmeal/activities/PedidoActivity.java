@@ -20,12 +20,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ar.com.marianoroces.sendmeal.MyIntentService;
-import ar.com.marianoroces.sendmeal.MyReceiver;
+import ar.com.marianoroces.sendmeal.utils.MyIntentService;
+import ar.com.marianoroces.sendmeal.utils.MyReceiver;
 import ar.com.marianoroces.sendmeal.adapters.PlatoPedidoAdapter;
 import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.Plato;

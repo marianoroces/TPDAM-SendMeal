@@ -1,7 +1,7 @@
 package ar.com.marianoroces.sendmeal.model;
 
 public class Usuario {
-    private int id;
+    public int id;
     private String nombre;
     private String clave;
     private String email;

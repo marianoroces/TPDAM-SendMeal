@@ -1,4 +1,4 @@
-package ar.com.marianoroces.sendmeal;
+package ar.com.marianoroces.sendmeal.utils;
 
 import android.app.IntentService;
 import android.content.Intent;

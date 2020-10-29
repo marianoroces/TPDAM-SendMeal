@@ -1,11 +1,19 @@
 package ar.com.marianoroces.sendmeal.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Plato {
 
-    private String titulo;
-    private String descripcion;
-    private double precio;
-    private int calorias;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_plato")
+    public int id;
+    String titulo;
+    String descripcion;
+    double precio;
+    int calorias;
 
     public Plato(String titulo, String descripcion, double precio, int calorias) {
         this.titulo = titulo;

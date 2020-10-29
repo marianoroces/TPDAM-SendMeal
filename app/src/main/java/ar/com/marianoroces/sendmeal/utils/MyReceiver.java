@@ -1,4 +1,4 @@
-package ar.com.marianoroces.sendmeal;
+package ar.com.marianoroces.sendmeal.utils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
+import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.activities.HomeActivity;
 import ar.com.marianoroces.sendmeal.activities.ListaPlatosActivity;
 
