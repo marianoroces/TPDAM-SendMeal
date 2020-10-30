@@ -1,15 +1,19 @@
 package ar.com.marianoroces.sendmeal.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.UUID;
+
 @Entity
 public class Plato {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "id_plato")
-    public int id;
+    public String id;
     String titulo;
     String descripcion;
     double precio;
@@ -20,6 +24,7 @@ public class Plato {
         this.descripcion = descripcion;
         this.precio = precio;
         this.calorias = calorias;
+        this.id = UUID.randomUUID().toString();
     }
 
     public String getTitulo() {
@@ -52,5 +57,14 @@ public class Plato {
 
     public void setCalorias(int calorias) {
         this.calorias = calorias;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 }

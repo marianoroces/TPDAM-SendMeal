@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,38 +19,35 @@ import java.util.List;
 import ar.com.marianoroces.sendmeal.adapters.PlatoRecyclerAdapter;
 import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.Plato;
+import ar.com.marianoroces.sendmeal.repositories.PlatoRepository;
+import ar.com.marianoroces.sendmeal.utils.OnPlatoResultCallback;
 
-public class ListaPlatosActivity extends AppCompatActivity {
+public class ListaPlatosActivity extends AppCompatActivity implements OnPlatoResultCallback {
 
     Toolbar tbListaPlatos;
     RecyclerView rvListaPlatos;
     PlatoRecyclerAdapter platoAdapter;
     List<Plato> listaPlatos;
+    PlatoRepository platoRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_platos);
 
+        platoRepository = new PlatoRepository(this.getApplication(), this);
+
         tbListaPlatos = findViewById(R.id.tbListaPlatos);
         setSupportActionBar(tbListaPlatos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listaPlatos = new ArrayList<Plato>();
-        inicializarPlatos(listaPlatos);
 
-        platoAdapter = new PlatoRecyclerAdapter(listaPlatos, ListaPlatosActivity.this);
+        //MOSTRAR LISTA DE PLATOS CON ROOM
+        platoRepository.buscarTodos();
 
-        rvListaPlatos = findViewById(R.id.rvListaPlatos);
-        rvListaPlatos.setAdapter(platoAdapter);
-        rvListaPlatos.setLayoutManager(new LinearLayoutManager(this));
-        rvListaPlatos.setHasFixedSize(true);
-
-        platoAdapter.activarBotones(false);
-
-        if(getIntent().getStringExtra("iniciadoDesde").equalsIgnoreCase("pedido")){
-            platoAdapter.activarBotones(true);
-        }
+        //MOSTRAR LISTA DE PLATOS UTILIZANDO API REST
+        //platoRepository.buscarTodosRest();
     }
 
     @Override
@@ -69,12 +67,34 @@ public class ListaPlatosActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void inicializarPlatos(List<Plato> platos) {
-        platos.add(new Plato("Plato 1", "descripcion 1", 300.15, 200));
-        platos.add(new Plato("Plato 2", "descripcion 2", 135.98, 120));
-        platos.add(new Plato("Plato 3", "descripcion 3", 500.00, 80));
-        platos.add(new Plato("Plato 4", "descripcion 4", 1854.22, 543));
-        platos.add(new Plato("Plato 5", "descripcion 5", 753.44, 178));
-        platos.add(new Plato("Plato 6", "descripcion 6", 50.35, 260));
+    @Override
+    public void onResult(List<Plato> plato) {
+        listaPlatos = plato;
+        mostrarResultados(plato);
+
+        platoAdapter = new PlatoRecyclerAdapter(listaPlatos, this);
+
+        rvListaPlatos = findViewById(R.id.rvListaPlatos);
+        rvListaPlatos.setAdapter(platoAdapter);
+        rvListaPlatos.setLayoutManager(new LinearLayoutManager(this));
+        rvListaPlatos.setHasFixedSize(true);
+
+        platoAdapter.activarBotones(false);
+
+        if(getIntent().getStringExtra("iniciadoDesde").equalsIgnoreCase("pedido")){
+            platoAdapter.activarBotones(true);
+        }
+    }
+
+    @Override
+    public void onResult(Plato plato) {
+
+    }
+
+    public void mostrarResultados(List<Plato> platos){
+        Log.d("DEBUG", String.valueOf(platos.size()));
+        for(Plato aux : platos){
+            Log.d("DEBUG", aux.getId());
+        }
     }
 }

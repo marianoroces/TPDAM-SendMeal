@@ -2,25 +2,36 @@ package ar.com.marianoroces.sendmeal.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.marianoroces.sendmeal.DAO.PlatoDAO;
+import ar.com.marianoroces.sendmeal.services.MyRetrofit;
+import ar.com.marianoroces.sendmeal.services.PlatoService;
 import ar.com.marianoroces.sendmeal.utils.OnPlatoResultCallback;
 import ar.com.marianoroces.sendmeal.model.Plato;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PlatoRepository implements OnPlatoResultCallback {
 
     private PlatoDAO platoDao;
     private OnPlatoResultCallback callback;
+    private PlatoService platoService;
+    private List<Plato> listaPlatos = new ArrayList<>();
 
-    private PlatoRepository(Application application, OnPlatoResultCallback context){
+    public PlatoRepository(Application application, OnPlatoResultCallback context){
         AppDatabase db = AppDatabase.getInstance(application);
         platoDao = db.platoDao();
         callback = context;
+        platoService = MyRetrofit.getInstance().crearPlatoService();
     }
 
     public void insertar(final Plato plato){
+        Log.d("DEBUG", "Plato insertado");
         platoDao.insertar(plato);
     }
 
@@ -40,8 +51,34 @@ public class PlatoRepository implements OnPlatoResultCallback {
         new BuscarPlatos(platoDao, this).execute();
     }
 
+    public void buscarTodosRest(){
+        Call<List<Plato>> callPlatos = platoService.buscarTodos();
+
+        callPlatos.enqueue(
+                new Callback<List<Plato>>() {
+                    @Override
+                    public void onResponse(Call<List<Plato>> call, Response<List<Plato>> response) {
+                        if(response.code() == 200) {
+                            Log.d("DEBUG", "Return exitoso");
+                            Log.d("DEBUG", response.body().toString());
+                            listaPlatos.clear();
+                            listaPlatos.addAll(response.body());
+                            callback.onResult(listaPlatos);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Plato>> call, Throwable t) {
+                        Log.d("DEBUG", "Return fallido");
+                        Log.d("DEBUG", t.getMessage());
+                    }
+                }
+        );
+    }
+
     @Override
     public void onResult(List<Plato> platos){
+        Log.d("DEBUG", "Platos cargados");
         callback.onResult(platos);
     }
 
@@ -94,5 +131,9 @@ public class PlatoRepository implements OnPlatoResultCallback {
             super.onPostExecute(plato);
             callback.onResult(plato);
         }
+    }
+
+    public List<Plato> getListaPlatos(){
+        return listaPlatos;
     }
 }

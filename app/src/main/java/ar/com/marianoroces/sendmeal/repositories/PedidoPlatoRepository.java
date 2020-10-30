@@ -14,7 +14,7 @@ public class PedidoPlatoRepository implements OnPedidoPlatoResultCallback {
     PedidoPlatoDAO pedidoPlatoDao;
     OnPedidoPlatoResultCallback callback;
 
-    private PedidoPlatoRepository(Application application, OnPedidoPlatoResultCallback context){
+    public PedidoPlatoRepository(Application application, OnPedidoPlatoResultCallback context){
         AppDatabase db = AppDatabase.getInstance(application);
         pedidoPlatoDao = db.pedidoPlatoDAO();
         callback = context;

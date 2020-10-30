@@ -20,10 +20,14 @@ public class PedidoPlato {
     public int id;
 
     @ColumnInfo(name = "id_pedido")
-    public int idPedido;
+    public String idPedido;
 
     @Embedded
     Plato plato;
+
+    public PedidoPlato(Plato plato) {
+        this.plato = plato;
+    }
 
     public int getId() {
         return id;
@@ -33,11 +37,11 @@ public class PedidoPlato {
         this.id = id;
     }
 
-    public int getIdPedido() {
+    public String getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(int idPedido) {
+    public void setIdPedido(String idPedido) {
         this.idPedido = idPedido;
     }
 

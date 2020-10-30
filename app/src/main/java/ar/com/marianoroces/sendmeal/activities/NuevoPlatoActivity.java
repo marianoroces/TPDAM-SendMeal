@@ -3,7 +3,9 @@ package ar.com.marianoroces.sendmeal.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,10 +15,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
 import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.Plato;
+import ar.com.marianoroces.sendmeal.repositories.PlatoRepository;
+import ar.com.marianoroces.sendmeal.utils.OnPlatoResultCallback;
 
-public class NuevoPlatoActivity extends AppCompatActivity {
+public class NuevoPlatoActivity extends AppCompatActivity implements OnPlatoResultCallback{
 
     EditText txtTituloPlato;
     EditText txtDescripcionPlato;
@@ -24,11 +33,14 @@ public class NuevoPlatoActivity extends AppCompatActivity {
     EditText txtCaloriasPlato;
     Button btnGuardarPlato;
     Toolbar tbNuevoPlato;
+    PlatoRepository platoRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_plato);
+
+        platoRepository = new PlatoRepository(this.getApplication(), this);
 
         txtTituloPlato = findViewById(R.id.txtTituloPlato);
         txtDescripcionPlato = findViewById(R.id.txtDescripcionPlato);
@@ -56,10 +68,18 @@ public class NuevoPlatoActivity extends AppCompatActivity {
                             if(txtCaloriasPlato.getText().toString().equals("")){
                                 txtCaloriasPlato.setError("INGRESAR CALORIAS DEL PLATO");
                             } else {
-                                Plato plato = new Plato(txtTituloPlato.getText().toString(),
+                                final Plato plato = new Plato(txtTituloPlato.getText().toString(),
                                                         txtDescripcionPlato.getText().toString(),
                                                         Double.parseDouble(txtPrecioPlato.getText().toString()),
                                                         Integer.parseInt(txtCaloriasPlato.getText().toString()));
+
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        platoRepository.insertar(plato);
+                                        Log.d("DEBUG", plato.getId()+" - "+plato.getTitulo());
+                                    }
+                                });
 
                                 txtTituloPlato.setText("");
                                 txtDescripcionPlato.setText("");
@@ -73,5 +93,15 @@ public class NuevoPlatoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResult(List<Plato> plato) {
+
+    }
+
+    @Override
+    public void onResult(Plato plato) {
+
     }
 }

@@ -14,29 +14,29 @@ public class PedidoRepository implements OnPedidoResultCallback{
     private PedidoDAO pedidoDao;
     private OnPedidoResultCallback callback;
 
-    private PedidoRepository(Application application, OnPedidoResultCallback context){
+    public PedidoRepository(Application application, OnPedidoResultCallback context){
         AppDatabase db = AppDatabase.getInstance(application);
         pedidoDao = db.pedidoDAO();
         callback = context;
     }
 
-    void insertar(final Pedido pedido){
+    public void insertar(final Pedido pedido){
         pedidoDao.insertar(pedido);
     }
 
-    void borrar(final Pedido pedido){
+    public void borrar(final Pedido pedido){
         pedidoDao.borrar(pedido);
     }
 
-    void actualizar(final Pedido pedido){
+    public void actualizar(final Pedido pedido){
         pedidoDao.actualizar(pedido);
     }
 
-    void buscarPorId(String id){
+    public void buscarPorId(String id){
         new BuscarPedidoById(pedidoDao, this).execute(id);
     }
 
-    void buscarTodos(){
+    public void buscarTodos(){
         new BuscarPedidos(pedidoDao, this).execute();
     }
 

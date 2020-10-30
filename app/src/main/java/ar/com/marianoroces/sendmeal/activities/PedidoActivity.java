@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,14 +23,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import ar.com.marianoroces.sendmeal.enums.TipoEnvio;
+import ar.com.marianoroces.sendmeal.model.Pedido;
+import ar.com.marianoroces.sendmeal.model.PedidoPlato;
+import ar.com.marianoroces.sendmeal.repositories.PedidoRepository;
 import ar.com.marianoroces.sendmeal.utils.MyIntentService;
 import ar.com.marianoroces.sendmeal.utils.MyReceiver;
 import ar.com.marianoroces.sendmeal.adapters.PlatoPedidoAdapter;
 import ar.com.marianoroces.sendmeal.R;
 import ar.com.marianoroces.sendmeal.model.Plato;
+import ar.com.marianoroces.sendmeal.utils.OnPedidoPlatoResultCallback;
+import ar.com.marianoroces.sendmeal.utils.OnPedidoResultCallback;
 
-public class PedidoActivity extends AppCompatActivity {
+public class PedidoActivity extends AppCompatActivity implements OnPedidoResultCallback {
 
     EditText txtMail;
     EditText txtCalle;
@@ -42,10 +51,12 @@ public class PedidoActivity extends AppCompatActivity {
     ListView lvPedidos;
     PlatoPedidoAdapter platoAdapter;
     ArrayList<Plato> listaPlatos = new ArrayList<Plato>();
+    ArrayList<PedidoPlato> listaPlatosPedidos = new ArrayList<PedidoPlato>();
     int CODIGO_AGREGAR_PLATO = 1;
     Double totalPedido = 0.00;
     ConfirmarPedidoTask confirmarTask;
     BroadcastReceiver myReceiver;
+    PedidoRepository pedidoRepository;
 
     public static final String CODIGO_PEDIDO_CONFIRMADO = "1";
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
@@ -55,6 +66,7 @@ public class PedidoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido);
 
+        pedidoRepository = new PedidoRepository(this.getApplication(), this);
         confirmarTask = new ConfirmarPedidoTask();
 
         myReceiver = new MyReceiver();
@@ -93,9 +105,22 @@ public class PedidoActivity extends AppCompatActivity {
         });
 
         btnConfirmarPedido.setOnClickListener(new Button.OnClickListener() {
+            Pedido pedido = new Pedido(TipoEnvio.valueOf(spTipoPedido.getSelectedItem().toString()),
+                    new Date(),
+                    txtMail.getText().toString(),
+                    txtCalle.getText().toString(),
+                    txtNumero.getText().toString(),
+                    totalPedido);
             @Override
             public void onClick(View view) {
-                confirmarTask.execute();
+                //confirmarTask.execute();
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        pedido.setPlatos(listaPlatosPedidos);
+                        pedidoRepository.insertar(pedido);
+                    }
+                });
                 finish();
             }
         });
@@ -117,7 +142,9 @@ public class PedidoActivity extends AppCompatActivity {
                 String descripcionPlato = data.getStringExtra("descripcionPlato");
 
                 Plato platoAuxiliar = new Plato(nombrePlato, descripcionPlato, Double.parseDouble(precioPlato), Integer.parseInt(caloriasPlato));
-                agregarPlato(platoAuxiliar);
+                PedidoPlato platoPedidoAux = new PedidoPlato(platoAuxiliar);
+                listaPlatosPedidos.add(platoPedidoAux);
+                agregarPlatosPedidos(platoAuxiliar);
 
                 if(listaPlatos.size() > 0) {
                     btnConfirmarPedido.setEnabled(true);
@@ -129,10 +156,21 @@ public class PedidoActivity extends AppCompatActivity {
         }
     }
 
-    private void agregarPlato(Plato platoAux) {
+    private void agregarPlatosPedidos(Plato platoAux) {
         listaPlatos.add(platoAux);
         platoAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onResult(Pedido pedido) {
+
+    }
+
+    @Override
+    public void onResult(List<Pedido> pedidos) {
+
+    }
+
 
     class ConfirmarPedidoTask extends AsyncTask<Void, Void, String> {
 
