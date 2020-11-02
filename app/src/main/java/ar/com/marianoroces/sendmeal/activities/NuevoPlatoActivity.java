@@ -76,7 +76,13 @@ public class NuevoPlatoActivity extends AppCompatActivity implements OnPlatoResu
                                 AsyncTask.execute(new Runnable() {
                                     @Override
                                     public void run() {
-                                        platoRepository.insertar(plato);
+                                        //PARA INSERTAR CON ROOM
+                                        //platoRepository.insertar(plato);
+
+                                        //PARA INSERTAR CON RETROFIT
+                                        platoRepository.insertarRest(plato);
+
+
                                         Log.d("DEBUG", plato.getId()+" - "+plato.getTitulo());
                                     }
                                 });

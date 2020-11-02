@@ -18,7 +18,7 @@ public class Pedido {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id_pedido")
-    public String id;
+    public String idPedido;
 
     //ENVIO, TAKE_AWAY
     @ColumnInfo(name = "tipo_envio")
@@ -31,7 +31,7 @@ public class Pedido {
     double precio;
 
     @Ignore
-    List<PedidoPlato> platos;
+    List<PedidoPlato> platosPedidos;
 
     public Pedido(TipoEnvio tipoEnvio, Date fecha, String email, String calle, String numero, double precio) {
         this.tipoEnvio = tipoEnvio;
@@ -40,7 +40,19 @@ public class Pedido {
         this.calle = calle;
         this.numero = numero;
         this.precio = precio;
-        this.id = UUID.randomUUID().toString();
+        this.idPedido = UUID.randomUUID().toString();
+    }
+
+    public Pedido() {
+    }
+
+    @NonNull
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(@NonNull String idPedido) {
+        this.idPedido = idPedido;
     }
 
     public double getPrecio() {
@@ -75,14 +87,6 @@ public class Pedido {
         this.numero = numero;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public TipoEnvio getTipoEnvio() {
         return tipoEnvio;
     }
@@ -99,11 +103,11 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public List<PedidoPlato> getPlatos() {
-        return platos;
+    public List<PedidoPlato> getPlatosPedidos() {
+        return platosPedidos;
     }
 
-    public void setPlatos(List<PedidoPlato> platos) {
-        this.platos = platos;
+    public void setPlatosPedidos(List<PedidoPlato> platosPedidos) {
+        this.platosPedidos = platosPedidos;
     }
 }

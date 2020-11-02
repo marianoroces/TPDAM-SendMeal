@@ -44,10 +44,10 @@ public class ListaPlatosActivity extends AppCompatActivity implements OnPlatoRes
         listaPlatos = new ArrayList<Plato>();
 
         //MOSTRAR LISTA DE PLATOS CON ROOM
-        platoRepository.buscarTodos();
+        //platoRepository.buscarTodos();
 
         //MOSTRAR LISTA DE PLATOS UTILIZANDO API REST
-        //platoRepository.buscarTodosRest();
+        platoRepository.buscarTodosRest();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ListaPlatosActivity extends AppCompatActivity implements OnPlatoRes
     public void mostrarResultados(List<Plato> platos){
         Log.d("DEBUG", String.valueOf(platos.size()));
         for(Plato aux : platos){
-            Log.d("DEBUG", aux.getId());
+            Log.d("DEBUG", "PLATO: "+aux.getTitulo()+" - ID: "+aux.getId());
         }
     }
 }

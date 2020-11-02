@@ -4,7 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -24,7 +23,4 @@ public interface PedidoPlatoDAO {
 
     @Query("SELECT * FROM pedido_plato")
     List<PedidoPlato> buscarTodos();
-
-    @Query("SELECT * FROM pedido_plato WHERE id_item = :id LIMIT 1")
-    PedidoPlato buscar(String id);
 }

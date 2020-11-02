@@ -2,6 +2,10 @@ package ar.com.marianoroces.sendmeal.services;
 
 import androidx.room.Update;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 import java.util.List;
 
 import ar.com.marianoroces.sendmeal.model.Plato;
@@ -20,9 +24,9 @@ public interface PlatoService {
     @GET("platos")
     Call<List<Plato>> buscarTodos();
 
-    @DELETE("platos")
-    Call<Plato> borrar(@Body String body);
+    @DELETE("platos/{id}")
+    Call<Plato> borrar(@Path("id") String id);
 
     @POST("platos")
-    Call<Plato> crearPlato(@Body String body);
+    Call<Plato> crearPlato(@Body JsonObject body);
 }

@@ -19,7 +19,7 @@ public class MyRetrofit {
     }
 
     private MyRetrofit() {
-        Gson gson = new GsonBuilder().setLenient().create();
+        Gson gson = new GsonBuilder().setLenient().setDateFormat("dd/MM/yyyy").create();
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.4:3001/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -28,5 +28,9 @@ public class MyRetrofit {
 
     public PlatoService crearPlatoService(){
         return retrofit.create(PlatoService.class);
+    }
+
+    public PedidoService crearPedidoService() {
+        return retrofit.create(PedidoService.class);
     }
 }

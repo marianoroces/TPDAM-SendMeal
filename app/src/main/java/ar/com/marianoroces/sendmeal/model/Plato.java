@@ -3,6 +3,7 @@ package ar.com.marianoroces.sendmeal.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class Plato {
         this.descripcion = descripcion;
         this.precio = precio;
         this.calorias = calorias;
-        this.id = UUID.randomUUID().toString();
+        //this.id = UUID.randomUUID().toString();
     }
 
     public String getTitulo() {

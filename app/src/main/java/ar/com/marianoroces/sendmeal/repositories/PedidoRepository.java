@@ -2,26 +2,83 @@ package ar.com.marianoroces.sendmeal.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.marianoroces.sendmeal.DAO.PedidoDAO;
+import ar.com.marianoroces.sendmeal.model.PedidoPlato;
+import ar.com.marianoroces.sendmeal.services.MyRetrofit;
+import ar.com.marianoroces.sendmeal.services.PedidoService;
 import ar.com.marianoroces.sendmeal.utils.OnPedidoResultCallback;
 import ar.com.marianoroces.sendmeal.model.Pedido;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PedidoRepository implements OnPedidoResultCallback{
 
     private PedidoDAO pedidoDao;
     private OnPedidoResultCallback callback;
+    private PedidoService pedidoService;
 
     public PedidoRepository(Application application, OnPedidoResultCallback context){
         AppDatabase db = AppDatabase.getInstance(application);
         pedidoDao = db.pedidoDAO();
         callback = context;
+        pedidoService = MyRetrofit.getInstance().crearPedidoService();
     }
 
-    public void insertar(final Pedido pedido){
-        pedidoDao.insertar(pedido);
+    public Long insertar(final Pedido pedido){
+        Long idAux = pedidoDao.insertar(pedido);
+        Log.d("DEBUG", "Pedido insertado: "+String.valueOf(idAux));
+        return idAux;
+    }
+
+    public void insertarRest(final Pedido pedido){
+        JsonArray idPlatos = new JsonArray();
+        for(PedidoPlato pedidoPlatoAux : pedido.getPlatosPedidos()){
+            idPlatos.add(pedidoPlatoAux.plato.getId());
+        }
+
+        /*DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaPedido = format.format(pedido.getFecha());*/
+
+        JsonObject pedidoAux = new JsonObject();
+
+        Log.d("DEBUG", idPlatos.toString());
+
+        pedidoAux.addProperty("id", pedido.getIdPedido());
+        pedidoAux.addProperty("platosId", idPlatos.toString());
+        pedidoAux.addProperty("e-mail", pedido.getEmail());
+        pedidoAux.addProperty("calle", pedido.getCalle());
+        pedidoAux.addProperty("numero", pedido.getNumero());
+        pedidoAux.addProperty("fecha", pedido.getFecha().toString());
+        pedidoAux.addProperty("tipo_envio", pedido.getTipoEnvio().toString());
+        pedidoAux.addProperty("precio", pedido.getPrecio());
+
+        Call<Pedido> callPedido = pedidoService.crearPedido(pedidoAux);
+
+        callPedido.enqueue(new Callback<Pedido>() {
+            @Override
+            public void onResponse(Call<Pedido> call, Response<Pedido> response) {
+                Log.d("DEBUG", "Pedido insertado con Retrofit");
+            }
+
+            @Override
+            public void onFailure(Call<Pedido> call, Throwable t) {
+                Log.d("DEBUG", t.getMessage());
+                Log.d("DEBUG", "FALLO AL INSERTAR PEDIDO CON RETROFIT");
+            }
+        });
     }
 
     public void borrar(final Pedido pedido){
@@ -36,18 +93,9 @@ public class PedidoRepository implements OnPedidoResultCallback{
         new BuscarPedidoById(pedidoDao, this).execute(id);
     }
 
-    public void buscarTodos(){
-        new BuscarPedidos(pedidoDao, this).execute();
-    }
-
     @Override
     public void onResult(Pedido pedido) {
         callback.onResult(pedido);
-    }
-
-    @Override
-    public void onResult(List<Pedido> pedidos) {
-        callback.onResult(pedidos);
     }
 
     class BuscarPedidoById extends AsyncTask<String, Void, Pedido> {
@@ -70,29 +118,6 @@ public class PedidoRepository implements OnPedidoResultCallback{
         protected void onPostExecute(Pedido pedido){
             super.onPostExecute(pedido);
             callback.onResult(pedido);
-        }
-    }
-
-    class BuscarPedidos extends AsyncTask<String, Void, List<Pedido>> {
-
-        private PedidoDAO dao;
-        private OnPedidoResultCallback callback;
-
-        public BuscarPedidos(PedidoDAO dao, OnPedidoResultCallback context) {
-            this.dao = dao;
-            this.callback = context;
-        }
-
-        @Override
-        protected List<Pedido> doInBackground(String... strings) {
-            List<Pedido> pedidos = dao.buscarTodos();
-            return pedidos;
-        }
-
-        @Override
-        protected void onPostExecute(List<Pedido> pedidos) {
-            super.onPostExecute(pedidos);
-            callback.onResult(pedidos);
         }
     }
 }

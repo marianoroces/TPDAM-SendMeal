@@ -29,6 +29,7 @@ import java.util.List;
 import ar.com.marianoroces.sendmeal.enums.TipoEnvio;
 import ar.com.marianoroces.sendmeal.model.Pedido;
 import ar.com.marianoroces.sendmeal.model.PedidoPlato;
+import ar.com.marianoroces.sendmeal.repositories.PedidoPlatoRepository;
 import ar.com.marianoroces.sendmeal.repositories.PedidoRepository;
 import ar.com.marianoroces.sendmeal.utils.MyIntentService;
 import ar.com.marianoroces.sendmeal.utils.MyReceiver;
@@ -38,7 +39,7 @@ import ar.com.marianoroces.sendmeal.model.Plato;
 import ar.com.marianoroces.sendmeal.utils.OnPedidoPlatoResultCallback;
 import ar.com.marianoroces.sendmeal.utils.OnPedidoResultCallback;
 
-public class PedidoActivity extends AppCompatActivity implements OnPedidoResultCallback {
+public class PedidoActivity extends AppCompatActivity implements OnPedidoResultCallback, OnPedidoPlatoResultCallback {
 
     EditText txtMail;
     EditText txtCalle;
@@ -57,6 +58,8 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
     ConfirmarPedidoTask confirmarTask;
     BroadcastReceiver myReceiver;
     PedidoRepository pedidoRepository;
+    PedidoPlatoRepository pedidoPlatoRepository;
+    Pedido pedido;
 
     public static final String CODIGO_PEDIDO_CONFIRMADO = "1";
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
@@ -67,6 +70,8 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
         setContentView(R.layout.activity_pedido);
 
         pedidoRepository = new PedidoRepository(this.getApplication(), this);
+        pedidoPlatoRepository = new PedidoPlatoRepository(this.getApplication(), this);
+        pedido = new Pedido();
         confirmarTask = new ConfirmarPedidoTask();
 
         myReceiver = new MyReceiver();
@@ -105,23 +110,9 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
         });
 
         btnConfirmarPedido.setOnClickListener(new Button.OnClickListener() {
-            Pedido pedido = new Pedido(TipoEnvio.valueOf(spTipoPedido.getSelectedItem().toString()),
-                    new Date(),
-                    txtMail.getText().toString(),
-                    txtCalle.getText().toString(),
-                    txtNumero.getText().toString(),
-                    totalPedido);
             @Override
             public void onClick(View view) {
-                //confirmarTask.execute();
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        pedido.setPlatos(listaPlatosPedidos);
-                        pedidoRepository.insertar(pedido);
-                    }
-                });
-                finish();
+                confirmarTask.execute();
             }
         });
 
@@ -142,7 +133,10 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
                 String descripcionPlato = data.getStringExtra("descripcionPlato");
 
                 Plato platoAuxiliar = new Plato(nombrePlato, descripcionPlato, Double.parseDouble(precioPlato), Integer.parseInt(caloriasPlato));
-                PedidoPlato platoPedidoAux = new PedidoPlato(platoAuxiliar);
+                platoAuxiliar.setId(data.getStringExtra("idPlato"));
+                PedidoPlato platoPedidoAux = new PedidoPlato();
+                platoPedidoAux.setPlato(platoAuxiliar);
+
                 listaPlatosPedidos.add(platoPedidoAux);
                 agregarPlatosPedidos(platoAuxiliar);
 
@@ -167,22 +161,43 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
     }
 
     @Override
-    public void onResult(List<Pedido> pedidos) {
+    public void onResult(PedidoPlato pedidoPlato) {
 
     }
-
 
     class ConfirmarPedidoTask extends AsyncTask<Void, Void, String> {
 
         @Override
         protected String doInBackground(Void... voids) {
-            for(int i=0; i<5; i++) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            String tipoEnvioTemp = spTipoPedido.getSelectedItem().toString();
+            String tipoEnvio = "";
+            switch(tipoEnvioTemp){
+                case "Envio":
+                    tipoEnvio = "ENVIO";
+                    break;
+                case "Take Away":
+                    tipoEnvio = "TAKE_AWAY";
+                    break;
             }
+
+            pedido.setTipoEnvio(TipoEnvio.valueOf(tipoEnvio));
+            pedido.setFecha(new Date());
+            pedido.setEmail(txtMail.getText().toString());
+            pedido.setCalle(txtCalle.getText().toString());
+            pedido.setNumero(txtNumero.getText().toString());
+            pedido.setPrecio(totalPedido);
+            pedido.setPlatosPedidos(listaPlatosPedidos);
+
+            /*PARA GUARDAR PEDIDO CON ROOM
+            Long idPedidoPlato = pedidoRepository.insertar(pedido);
+            for(PedidoPlato pedidoPlatoAux : listaPlatosPedidos){
+                pedidoPlatoAux.setIdPedido(idPedidoPlato);
+                pedidoPlatoRepository.insertar(pedidoPlatoAux);
+            }*/
+
+            //PARA GUARDAR PEDIDO CON RETROFIT
+            pedidoRepository.insertarRest(pedido);
+
             return "Pedido confirmado";
         }
 

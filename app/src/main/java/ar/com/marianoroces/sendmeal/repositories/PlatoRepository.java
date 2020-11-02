@@ -3,11 +3,19 @@ package ar.com.marianoroces.sendmeal.repositories;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.marianoroces.sendmeal.DAO.PlatoDAO;
+import ar.com.marianoroces.sendmeal.activities.NuevoPlatoActivity;
 import ar.com.marianoroces.sendmeal.services.MyRetrofit;
 import ar.com.marianoroces.sendmeal.services.PlatoService;
 import ar.com.marianoroces.sendmeal.utils.OnPlatoResultCallback;
@@ -31,8 +39,34 @@ public class PlatoRepository implements OnPlatoResultCallback {
     }
 
     public void insertar(final Plato plato){
-        Log.d("DEBUG", "Plato insertado");
+        Log.d("DEBUG", "Plato insertado con Room");
         platoDao.insertar(plato);
+    }
+
+    public void insertarRest(final Plato plato) {
+        JsonObject aux = new JsonObject();
+
+        aux.addProperty("id", plato.getId());
+        aux.addProperty("titulo", plato.getTitulo());
+        aux.addProperty("descripcion", plato.getDescripcion());
+        aux.addProperty("precio", plato.getPrecio());
+        aux.addProperty("calorias", plato.getCalorias());
+
+        Call<Plato> callPlato = platoService.crearPlato(aux);
+
+        callPlato.enqueue(
+                new Callback<Plato>() {
+                    @Override
+                    public void onResponse(Call<Plato> call, Response<Plato> response) {
+                        Log.d("DEBUG", "Plato insertado con Retrofit");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Plato> call, Throwable t) {
+                        Log.d("DEBUG", "FALLO AL INSERTAR PLATO CON RETROFIT");
+                    }
+                }
+        );
     }
 
     public void borrar(final Plato plato){

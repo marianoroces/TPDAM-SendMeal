@@ -14,7 +14,7 @@ import ar.com.marianoroces.sendmeal.model.Pedido;
 public interface PedidoDAO {
 
     @Insert
-    void insertar(Pedido pedido);
+    Long insertar(Pedido pedido);
 
     @Delete
     void borrar(Pedido pedido);

@@ -58,6 +58,7 @@ public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoViewHolder> 
                 intentPedido.putExtra("precioPlato", String.valueOf(platoAuxiliar.getPrecio()));
                 intentPedido.putExtra("descripcionPlato", platoAuxiliar.getDescripcion());
                 intentPedido.putExtra("caloriasPlato", String.valueOf(platoAuxiliar.getCalorias()));
+                intentPedido.putExtra("idPlato", platoAuxiliar.getId());
                 activity.setResult(Activity.RESULT_OK, intentPedido);
                 activity.finish();
             }

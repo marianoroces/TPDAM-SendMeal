@@ -2,6 +2,7 @@ package ar.com.marianoroces.sendmeal.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class PedidoPlatoRepository implements OnPedidoPlatoResultCallback {
 
     public void insertar(final PedidoPlato pedidoPlato){
         pedidoPlatoDao.insertar(pedidoPlato);
+        Log.d("DEBUG", "PedidoPlato insertado "+pedidoPlato.getIdPedidoPlato());
     }
 
     public void borrar(final PedidoPlato pedidoPlato){
@@ -41,12 +43,7 @@ public class PedidoPlatoRepository implements OnPedidoPlatoResultCallback {
         callback.onResult(pedidoPlato);
     }
 
-    @Override
-    public void onResult(List<PedidoPlato> pedidoPlatoes) {
-        callback.onResult(pedidoPlatoes);
-    }
-
-    class BuscarPedidoPlatos extends AsyncTask<String, Void, List<PedidoPlato>> {
+    /*class BuscarPedidoPlatos extends AsyncTask<String, Void, List<PedidoPlato>> {
 
         private PedidoPlatoDAO dao;
         private OnPedidoPlatoResultCallback callback;
@@ -67,9 +64,9 @@ public class PedidoPlatoRepository implements OnPedidoPlatoResultCallback {
             super.onPostExecute(pedidoPlatoes);
             callback.onResult(pedidoPlatoes);
         }
-    }
+    }*/
 
-    class BuscarPedidoPlatoById extends AsyncTask<String, Void, PedidoPlato> {
+    /*class BuscarPedidoPlatoById extends AsyncTask<String, Void, PedidoPlato> {
 
         private PedidoPlatoDAO dao;
         private OnPedidoPlatoResultCallback callback;
@@ -90,5 +87,5 @@ public class PedidoPlatoRepository implements OnPedidoPlatoResultCallback {
             super.onPostExecute(pedidoPlato);
             callback.onResult(pedidoPlato);
         }
-    }
+    }*/
 }
