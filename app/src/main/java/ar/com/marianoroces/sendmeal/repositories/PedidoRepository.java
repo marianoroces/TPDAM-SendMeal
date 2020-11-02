@@ -49,19 +49,19 @@ public class PedidoRepository implements OnPedidoResultCallback{
             idPlatos.add(pedidoPlatoAux.plato.getId());
         }
 
-        /*DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String fechaPedido = format.format(pedido.getFecha());*/
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaPedido = format.format(pedido.getFecha());
 
         JsonObject pedidoAux = new JsonObject();
 
         Log.d("DEBUG", idPlatos.toString());
 
         pedidoAux.addProperty("id", pedido.getIdPedido());
-        pedidoAux.addProperty("platosId", idPlatos.toString());
+        pedidoAux.add("platosId", idPlatos);
         pedidoAux.addProperty("e-mail", pedido.getEmail());
         pedidoAux.addProperty("calle", pedido.getCalle());
         pedidoAux.addProperty("numero", pedido.getNumero());
-        pedidoAux.addProperty("fecha", pedido.getFecha().toString());
+        pedidoAux.addProperty("fecha", fechaPedido);
         pedidoAux.addProperty("tipo_envio", pedido.getTipoEnvio().toString());
         pedidoAux.addProperty("precio", pedido.getPrecio());
 
