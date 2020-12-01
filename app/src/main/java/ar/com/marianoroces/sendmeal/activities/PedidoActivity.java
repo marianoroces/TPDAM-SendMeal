@@ -10,6 +10,8 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,9 +24,11 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ar.com.marianoroces.sendmeal.enums.TipoEnvio;
 import ar.com.marianoroces.sendmeal.model.Pedido;
@@ -44,16 +48,17 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
     EditText txtMail;
     EditText txtCalle;
     EditText txtNumero;
+    EditText txtUbicacion;
     TextView txtPrecioTotal;
     Spinner spTipoPedido;
     Toolbar toolbar;
     Button btnAgregarPlato;
     Button btnConfirmarPedido;
+    Button btnAgregarDireccion;
     ListView lvPedidos;
     PlatoPedidoAdapter platoAdapter;
     ArrayList<Plato> listaPlatos = new ArrayList<Plato>();
     ArrayList<PedidoPlato> listaPlatosPedidos = new ArrayList<PedidoPlato>();
-    int CODIGO_AGREGAR_PLATO = 1;
     Double totalPedido = 0.00;
     ConfirmarPedidoTask confirmarTask;
     BroadcastReceiver myReceiver;
@@ -63,6 +68,8 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
 
     public static final String CODIGO_PEDIDO_CONFIRMADO = "1";
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
+    public final int CODIGO_AGREGAR_PLATO = 1;
+    public final int CODIGO_AGREGAR_DIRECCION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +87,7 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
         this.registerReceiver(myReceiver, filtro);
         createNotificationChannel();
 
+        txtUbicacion = findViewById(R.id.txtUbicacion);
         txtMail = findViewById(R.id.txtMailNuevoPedido);
         txtCalle = findViewById(R.id.txtCalleNuevoPedido);
         txtNumero = findViewById(R.id.txtNumeroNuevoPedido);
@@ -88,6 +96,7 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
         toolbar = findViewById(R.id.tbNuevoPedido);
         btnAgregarPlato = findViewById(R.id.btnAgregarPlatos);
         btnConfirmarPedido = findViewById(R.id.btnConfirmarPedido);
+        btnAgregarDireccion = findViewById(R.id.btnAgregarDireccion);
         lvPedidos = findViewById(R.id.lvNuevoPedido);
 
         platoAdapter = new PlatoPedidoAdapter(this, listaPlatos);
@@ -116,36 +125,61 @@ public class PedidoActivity extends AppCompatActivity implements OnPedidoResultC
             }
         });
 
+        btnAgregarDireccion.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMapa = new Intent(PedidoActivity.this, MapActivity.class);
+                startActivityForResult(intentMapa, CODIGO_AGREGAR_DIRECCION);
+            }
+        });
+
         if(listaPlatos.size() == 0) {
             btnConfirmarPedido.setEnabled(false);
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == CODIGO_AGREGAR_PLATO) {
-            if(resultCode == Activity.RESULT_OK) {
-                String nombrePlato = data.getStringExtra("nombrePlato");
-                String precioPlato = data.getStringExtra("precioPlato");
-                String caloriasPlato = data.getStringExtra("caloriasPlato");
-                String descripcionPlato = data.getStringExtra("descripcionPlato");
+        if(resultCode == Activity.RESULT_OK) {
+            switch(requestCode) {
+                case CODIGO_AGREGAR_PLATO:
+                    String nombrePlato = data.getStringExtra("nombrePlato");
+                    String precioPlato = data.getStringExtra("precioPlato");
+                    String caloriasPlato = data.getStringExtra("caloriasPlato");
+                    String descripcionPlato = data.getStringExtra("descripcionPlato");
 
-                Plato platoAuxiliar = new Plato(nombrePlato, descripcionPlato, Double.parseDouble(precioPlato), Integer.parseInt(caloriasPlato));
-                platoAuxiliar.setId(data.getStringExtra("idPlato"));
-                PedidoPlato platoPedidoAux = new PedidoPlato();
-                platoPedidoAux.setPlato(platoAuxiliar);
+                    Plato platoAuxiliar = new Plato(nombrePlato, descripcionPlato, Double.parseDouble(precioPlato), Integer.parseInt(caloriasPlato));
+                    platoAuxiliar.setId(data.getStringExtra("idPlato"));
+                    PedidoPlato platoPedidoAux = new PedidoPlato();
+                    platoPedidoAux.setPlato(platoAuxiliar);
 
-                listaPlatosPedidos.add(platoPedidoAux);
-                agregarPlatosPedidos(platoAuxiliar);
+                    listaPlatosPedidos.add(platoPedidoAux);
+                    agregarPlatosPedidos(platoAuxiliar);
 
-                if(listaPlatos.size() > 0) {
-                    btnConfirmarPedido.setEnabled(true);
-                }
+                    if(listaPlatos.size() > 0) {
+                        btnConfirmarPedido.setEnabled(true);
+                    }
 
-                totalPedido += platoAuxiliar.getPrecio();
-                txtPrecioTotal.setText("Total: $"+String.valueOf(totalPedido));
+                    totalPedido += platoAuxiliar.getPrecio();
+                    txtPrecioTotal.setText("Total: $"+String.valueOf(totalPedido));
+                    break;
+                case CODIGO_AGREGAR_DIRECCION:
+                    Double latitud = data.getDoubleExtra("Latitud", 00.0000);
+                    Double longitud = data.getDoubleExtra("Longitud", 00.0000);
+                    pedido.setUbicacionLat(latitud);
+                    pedido.setUbicacionLng(longitud);
+
+                    Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                    List<Address> ubicaciones;
+
+                    try {
+                        ubicaciones = geocoder.getFromLocation(latitud, longitud, 1);
+                        txtUbicacion.setText(ubicaciones.get(0).getAddressLine(0));
+                    } catch (IOException e) {
+                        Log.d("DEBUG", e.getMessage());
+                    }
+                    break;
             }
         }
     }

@@ -52,8 +52,13 @@
     <string name="lblBotonAgregarPlato">Agregar Plato</string>
     <string name="lblPrecioTotal">Total: $0.00</string>
     <string name="lblConfirmarPedido">Confirmar Pedido</string>
+    <string name="lblBtnAgregarDireccion">Agregar Ubicacion de Envio</string>
+    <string name="lblUbicacion">Ubicacion: </string>
 
     <!-- CANAL DE NOTIFICACIONES -->
     <string name="channel_name">Pedido</string>
     <string name="channel_description">Canal para confirmar nuevos pedidos</string>
+
+    <!-- CLAVE API GOOGLE MAPS -->
+    <string name="google_maps_key">AIzaSyBYmmuz171q43o0HI3qs4uW_YqjIgm0im0</string>
 </resources>

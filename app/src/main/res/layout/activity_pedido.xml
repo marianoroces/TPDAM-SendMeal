@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".activities.PedidoActivity">
 
@@ -25,10 +29,10 @@
             android:layout_marginTop="@dimen/margenTitulo"
             android:layout_marginBottom="@dimen/margenTitulo"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="@dimen/dimTitulo"
+            android:text="@string/lblNuevoPedidoTitulo"
             android:textColor="@color/colorNegro"
-            android:text="@string/lblNuevoPedidoTitulo" />
+            android:textSize="@dimen/dimTitulo"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/txtMailNuevoPedido"
@@ -103,6 +107,48 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnAgregarDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margenSuperior"
+            android:layout_marginStart="@dimen/margenLateral"
+            android:layout_marginEnd="@dimen/margenLateral"
+            android:layout_gravity="center"
+            android:textColor="@color/colorBlanco"
+            android:text="@string/lblBtnAgregarDireccion"
+            android:background="@drawable/custom_button"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblUbicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margenLateral"
+                android:layout_marginEnd="@dimen/margenIntermedio"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:text="@string/lblUbicacion" />
+
+            <EditText
+                android:id="@+id/txtUbicacion"
+                android:layout_width="@dimen/editTextChico"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/margenIntermedio"
+                android:layout_marginEnd="@dimen/margenLateral"
+                android:background="@drawable/custom_edit_text"
+                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                android:padding="@dimen/padding"
+                android:ems="10"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <Button
             android:id="@+id/btnAgregarPlatos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,3 +197,4 @@
         </LinearLayout>
 
     </LinearLayout>
+</ScrollView>

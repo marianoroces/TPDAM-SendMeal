@@ -64,6 +64,8 @@ public class PedidoRepository implements OnPedidoResultCallback{
         pedidoAux.addProperty("fecha", fechaPedido);
         pedidoAux.addProperty("tipo_envio", pedido.getTipoEnvio().toString());
         pedidoAux.addProperty("precio", pedido.getPrecio());
+        pedidoAux.addProperty("latitud", pedido.getUbicacionLat());
+        pedidoAux.addProperty("longitud", pedido.getUbicacionLng());
 
         Call<Pedido> callPedido = pedidoService.crearPedido(pedidoAux);
 

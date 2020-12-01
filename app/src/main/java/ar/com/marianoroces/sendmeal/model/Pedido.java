@@ -29,6 +29,8 @@ public class Pedido {
     String calle;
     String numero;
     double precio;
+    public double ubicacionLat;
+    public double ubicacionLng;
 
     @Ignore
     List<PedidoPlato> platosPedidos;
@@ -109,5 +111,21 @@ public class Pedido {
 
     public void setPlatosPedidos(List<PedidoPlato> platosPedidos) {
         this.platosPedidos = platosPedidos;
+    }
+
+    public double getUbicacionLat() {
+        return ubicacionLat;
+    }
+
+    public void setUbicacionLat(double ubicacionLat) {
+        this.ubicacionLat = ubicacionLat;
+    }
+
+    public double getUbicacionLng() {
+        return ubicacionLng;
+    }
+
+    public void setUbicacionLng(double ubicacionLng) {
+        this.ubicacionLng = ubicacionLng;
     }
 }

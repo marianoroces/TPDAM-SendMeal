@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ar.com.marianoroces.sendmeal">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,16 +15,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.MapActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <receiver
             android:name=".utils.MyReceiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
         <service
             android:name=".utils.MyIntentService"
-            android:exported="false"/>
+            android:exported="false" />
+
         <activity
             android:name=".activities.PedidoActivity"
-            android:parentActivityName=".activities.ListaPlatosActivity"/>
+            android:parentActivityName=".activities.ListaPlatosActivity" />
         <activity
             android:name=".activities.ListaPlatosActivity"
             android:parentActivityName=".activities.HomeActivity" />
@@ -32,10 +49,10 @@
         <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 </manifest>
