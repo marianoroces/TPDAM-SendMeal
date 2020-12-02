@@ -38,6 +38,7 @@
     <string name="lblPrecioPlato">Precio</string>
     <string name="lblCaloriasPlato">Calorias</string>
     <string name="lblBotonGuardarPlato">GUARDAR</string>
+    <string name="lblBotonSacarFoto">Fotografiar plato</string>
 
     <!-- LISTAR PLATOS ACTIVITY -->
     <string name="lblPedirPlato">Pedir</string>

@@ -1,7 +1,11 @@
 package ar.com.marianoroces.sendmeal.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +14,13 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -22,6 +32,7 @@ public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoViewHolder> 
     private List<Plato> listaPlatos;
     private AppCompatActivity activity;
     private boolean activar;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public PlatoRecyclerAdapter(List<Plato> listaPlatos, AppCompatActivity act) {
         this.listaPlatos = listaPlatos;
@@ -40,7 +51,12 @@ public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoViewHolder> 
     public void onBindViewHolder(@NonNull final PlatoViewHolder platoHolder, int position) {
         final Plato platoAuxiliar = listaPlatos.get(position);
 
-        platoHolder.imgPlato.setImageResource(R.drawable.food_background);
+        if(platoAuxiliar.getUriImagen() != null){
+            descargarImagen(platoAuxiliar.getUriImagen(), platoHolder);
+        } else {
+            platoHolder.imgPlato.setImageResource(R.drawable.food_background);
+        }
+
         platoHolder.txtTituloPlato.setText(platoAuxiliar.getTitulo());
         platoHolder.txtMontoPlato.setText("$"+String.valueOf(platoAuxiliar.getPrecio()));
 
@@ -73,5 +89,31 @@ public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoViewHolder> 
     public void activarBotones(boolean activar){
         this.activar = activar;
         notifyDataSetChanged();
+    }
+
+    private void descargarImagen(String url, PlatoViewHolder platoViewHolder) {
+        StorageReference gsReference = storage.getReferenceFromUrl(url);
+
+        final long THREE_MEGABYTE = 3 * 1024 * 1024;
+        gsReference.getBytes(THREE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Exito
+                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                DisplayMetrics dm = new DisplayMetrics();
+                //dm = activity.getResources().getDisplayMetrics();
+                activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+                platoViewHolder.getImgPlato().setMinimumHeight(dm.heightPixels);
+                platoViewHolder.getImgPlato().setMinimumWidth(dm.widthPixels);
+                platoViewHolder.getImgPlato().setImageBitmap(bm);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Error - Cargar una imagen por defecto
+                platoViewHolder.getImgPlato().setImageResource(R.drawable.food_background);
+            }
+        });
     }
 }

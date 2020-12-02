@@ -51,6 +51,7 @@ public class PlatoRepository implements OnPlatoResultCallback {
         aux.addProperty("descripcion", plato.getDescripcion());
         aux.addProperty("precio", plato.getPrecio());
         aux.addProperty("calorias", plato.getCalorias());
+        aux.addProperty("uriImagen", plato.getUriImagen());
 
         Call<Plato> callPlato = platoService.crearPlato(aux);
 

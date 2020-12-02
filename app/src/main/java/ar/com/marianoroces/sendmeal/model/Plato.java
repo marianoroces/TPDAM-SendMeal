@@ -19,6 +19,7 @@ public class Plato {
     String descripcion;
     double precio;
     int calorias;
+    String uriImagen;
 
     public Plato(String titulo, String descripcion, double precio, int calorias) {
         this.titulo = titulo;
@@ -26,6 +27,10 @@ public class Plato {
         this.precio = precio;
         this.calorias = calorias;
         //this.id = UUID.randomUUID().toString();
+    }
+
+    public Plato(){
+
     }
 
     public String getTitulo() {
@@ -58,6 +63,14 @@ public class Plato {
 
     public void setCalorias(int calorias) {
         this.calorias = calorias;
+    }
+
+    public String getUriImagen() {
+        return uriImagen;
+    }
+
+    public void setUriImagen(String uriImagen) {
+        this.uriImagen = uriImagen;
     }
 
     @NonNull
