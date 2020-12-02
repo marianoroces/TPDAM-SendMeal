@@ -59,6 +59,8 @@
     <!-- CANAL DE NOTIFICACIONES -->
     <string name="channel_name">Pedido</string>
     <string name="channel_description">Canal para confirmar nuevos pedidos</string>
+    <string name="channel_firebase">Firebase</string>
+    <string name="channel_firebase_description">Canal para recibir notificaciones PUSH</string>
 
     <!-- CLAVE API GOOGLE MAPS -->
     <string name="google_maps_key">AIzaSyBYmmuz171q43o0HI3qs4uW_YqjIgm0im0</string>

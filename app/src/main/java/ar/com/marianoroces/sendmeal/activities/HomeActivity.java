@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import ar.com.marianoroces.sendmeal.R;
 
@@ -34,6 +35,24 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         signInAnonymously();
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            // Error
+                            return;
+                        }
+
+                        // FCM token
+                        String token = task.getResult();
+
+                        // Imprimirlo en un toast y en logs
+                        Log.d("TOKEN: ", token);
+                        Toast.makeText(HomeActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

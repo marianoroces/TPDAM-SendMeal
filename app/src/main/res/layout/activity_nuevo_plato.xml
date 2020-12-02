@@ -98,6 +98,17 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnSacarFoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margenLateral"
+        android:layout_marginEnd="@dimen/margenLateral"
+        android:layout_marginTop="@dimen/margenSuperior"
+        android:text="@string/lblBotonSacarFoto" />
+
+    <Button
         android:id="@+id/btnGuardarPlato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
